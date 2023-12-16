@@ -11,7 +11,7 @@ public class GetOrderListQueryHandler : IRequestHandler<GetOrderListQuery, List<
     private readonly IOrderRepository _orderRepository;
     private readonly IMapper _mapper;
 
-    public GetOrderListQueryHandler(IOrderRepository orderRepository, IMapper mapper, ILogger)
+    public GetOrderListQueryHandler(IOrderRepository orderRepository, IMapper mapper)
     {
         _orderRepository = orderRepository;
         _mapper = mapper;

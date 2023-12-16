@@ -13,7 +13,8 @@ public static class OrderingServiceCollectionExtention
     {
         services.AddDbContext<OrderDbContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("OrderingConnectionString"));
+            options.UseSqlServer(configuration.GetConnectionString("OrderingConnectionString"))
+            .EnableSensitiveDataLogging();
         });
 
         services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));

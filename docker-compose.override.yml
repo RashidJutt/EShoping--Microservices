@@ -26,6 +26,15 @@ services:
       - "5432:5432"
     volumes:
       - postgress_data:/var/lib/postgresql/data/
+  
+  orderingdb:
+   container_name: orderingdb
+   restart: always
+   environment:
+     - SA_PASSWORD="Rahul1234567"
+     - ACCEPT_EULA="Y"
+   ports:
+     - "1433:1433"  
 
   pgadmin:
     container_name: pgadmin
@@ -77,8 +86,17 @@ services:
    container_name: discount.api
    environment:
     - ASPNETCORE_ENVIRONMENT=Development
-    - "DatabaseSettings__ConnectionString=Server=discountdb;Port=5432;Database=Discountdb; User Id=admin; Password=admin1234;"
+    - "DatabaseSettings__ConnectionString=Server=discountdb;Port=5432;Database=Discountdb; User Id=admin; Password=admin1234;TrustServerCertificate=true;encrypt=false"
    depends_on:
     - discountdb
    ports:
     - "9002:80"
+  ordering.api:
+   container_name: ordering.api
+   environment:
+    - ASPNETCORE_ENVIRONMENT=Development
+    - "ConnectionStrings__OrderingConnectionString=Server=orderingdb;Database=OrderingDb;User Id=sa;Password=Rahul1234567;" 
+   depends_on:
+    - orderingdb 
+   ports:
+    - "9003:80"  

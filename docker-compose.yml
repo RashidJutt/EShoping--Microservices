@@ -6,15 +6,18 @@ services:
 
   basketdb:
     image: redis:alpine
-
-  portainer:
-    image: portainer/portainer-ce
   
   discountdb:
     image: postgres
 
+  orderingdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+  
   pgadmin:
     image: dpage/pgadmin4
+
+  portainer:
+    image: portainer/portainer-ce
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
@@ -32,6 +35,11 @@ services:
     build:
       context: .
       dockerfile: Discount/Discount.API/Dockerfile
+  ordering.api:
+     image: ${DOCKER_REGISTRY-}orderingapi
+     build:
+      context: .
+      dockerfile: Ordering/Ordering.API/Dockerfile
 
 volumes:
   mongo_data:

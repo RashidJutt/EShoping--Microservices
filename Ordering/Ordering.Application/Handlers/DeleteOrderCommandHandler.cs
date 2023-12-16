@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Ordering.Application.Commnads;
+using Ordering.Application.Exceptions;
 using Ordering.Core.Repositories;
 
 namespace Ordering.Application.Handlers;
