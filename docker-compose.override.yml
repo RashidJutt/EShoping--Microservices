@@ -28,13 +28,13 @@ services:
       - postgress_data:/var/lib/postgresql/data/
   
   orderingdb:
-   container_name: orderingdb
-   restart: always
-   environment:
-     - SA_PASSWORD="Rahul1234567"
-     - ACCEPT_EULA="Y"
-   ports:
-     - "1433:1433"  
+    container_name: orderingdb
+    restart: always
+    environment:
+      - SA_PASSWORD=Rahul1234567
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
 
   pgadmin:
     container_name: pgadmin
@@ -60,7 +60,6 @@ services:
     container_name: catalog.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-#      - ASPNETCORE_URLS=http://*:9000
       - "DatabaseSetting__ConnectionString=mongodb://catalogdb:27017"
       - "DatabaseSetting__DatabaseName=CatalogDb"
       - "DatabaseSetting__BrandsCollection=Brands"
@@ -74,29 +73,30 @@ services:
   basket.api:
     container_name: basket.api
     environment:
-     - ASPNETCORE_ENVIRONMENT=Development
-     - "CacheSettings__ConnectionString=basketdb:6379"
-     - "GrpcSettings__DiscountUrl=http://discount.api"
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CacheSettings__ConnectionString=basketdb:6379"
+      - "GrpcSettings__DiscountUrl=http://discount.api"
     depends_on:
-     - basketdb
+      - basketdb
     ports:
-     - "9001:80"
+      - "9001:80"
   
   discount.api:
-   container_name: discount.api
-   environment:
-    - ASPNETCORE_ENVIRONMENT=Development
-    - "DatabaseSettings__ConnectionString=Server=discountdb;Port=5432;Database=Discountdb; User Id=admin; Password=admin1234;TrustServerCertificate=true;encrypt=false"
-   depends_on:
-    - discountdb
-   ports:
-    - "9002:80"
+    container_name: discount.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings__ConnectionString=Host=discountdb;Port=5432;Database=Discountdb;Username=admin;Password=admin1234;TrustServerCertificate=true;SslMode=Disable"
+    depends_on:
+      - discountdb
+    ports:
+      - "9002:80"
+
   ordering.api:
-   container_name: ordering.api
-   environment:
-    - ASPNETCORE_ENVIRONMENT=Development
-    - "ConnectionStrings__OrderingConnectionString=Server=orderingdb;Database=OrderingDb;User Id=sa;Password=Rahul1234567;" 
-   depends_on:
-    - orderingdb 
-   ports:
-    - "9003:80"  
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings__OrderingConnectionString=Server=orderingdb;Database=OrderingDb;User Id=sa;Password=Rahul1234567;"
+    depends_on:
+      - orderingdb 
+    ports:
+      - "9003:80"
