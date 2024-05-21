@@ -1,7 +1,11 @@
 ﻿using Basket.Application.Commands;
 using Basket.Application.GrpcServices;
+using Basket.Application.Mappers;
 using Basket.Application.Queries;
 using Basket.Application.Responses;
+using Basket.Core.Entities;
+using EventBuss.Messages.Events;
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -12,11 +16,13 @@ namespace Basket.API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly DiscountGrpcService _discountGrpcService;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public BasketController(IMediator mediator, DiscountGrpcService discountGrpcService)
+        public BasketController(IMediator mediator, DiscountGrpcService discountGrpcService, IPublishEndpoint publishEndpoint)
         {
             _mediator = mediator;
             _discountGrpcService = discountGrpcService;
+            _publishEndpoint = publishEndpoint;
         }
 
         [HttpGet]
@@ -53,6 +59,31 @@ namespace Basket.API.Controllers
             var deleteCommand = new DeleteShoppingCartByUserNameCommand(userName);
             await _mediator.Send(deleteCommand);
             return NoContent();
+        }
+
+        [Route("Checkout")]
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult> Checkout(BasketCheckout checkout)
+        {
+            var basketQuery = new GetBasketByUserNameQuery(checkout.UserName);
+            var basket = await _mediator.Send(basketQuery);
+
+            if (basket == null)
+            {
+                return BadRequest();
+            }
+
+            var checkoutEvent = BasketMapper.Mapper.Map<BasketCheckoutEvent>(checkout);
+            checkoutEvent.TotalPrice = basket.TotalPrice;
+            await _publishEndpoint.Publish(checkoutEvent);
+
+            var deleteCommand = new DeleteShoppingCartByUserNameCommand(checkoutEvent.UserName);
+
+            await _mediator.Send(deleteCommand);
+
+            return Accepted();
         }
     }
 }

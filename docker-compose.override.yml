@@ -55,7 +55,14 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data 
-  
+
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672" 
+      - "15672:15672"
+ 
   catalog.api:
     container_name: catalog.api
     environment:
@@ -76,8 +83,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings__ConnectionString=basketdb:6379"
       - "GrpcSettings__DiscountUrl=http://discount.api"
+      - "EventBussSettings__HostAddress=amqp://guest:guest@rabbitmq:5672" 
     depends_on:
       - basketdb
+      - rabbitmq 
     ports:
       - "9001:80"
   

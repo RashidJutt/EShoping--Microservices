@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\EventBuss.Messages\EventBuss.Messages.csproj" />
     <ProjectReference Include="..\Basket.Core\Basket.Core.csproj" />
   </ItemGroup>
 
