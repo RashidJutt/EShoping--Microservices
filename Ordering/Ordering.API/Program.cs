@@ -11,6 +11,7 @@ public class Program
            .MigrateDatabase<OrderDbContext>(async (context, services) =>
            {
                var logger = services.GetService<ILogger<OrderContextSeed>>();
+               logger.LogInformation("Calling Seed Method");
                await OrderContextSeed.SeedAsync(context, logger!);
            })
            .Run();

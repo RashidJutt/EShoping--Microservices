@@ -25,14 +25,6 @@ public class OrderController : ApiController
         return Ok(orders);
     }
 
-    [HttpPost("CheckoutOrder")]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
-    public async Task<ActionResult<int>> CheckoutOrder([FromBody] CheckoutOrderCommand checkoutOrderCommand)
-    {
-        var result = await _mediator.Send(checkoutOrderCommand);
-        return Ok(result);
-    }
-
     [HttpPut(Name = "UpdateOrder")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -104,8 +104,10 @@ services:
     container_name: ordering.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings__OrderingConnectionString=Server=orderingdb;Database=OrderingDb;User Id=sa;Password=Rahul1234567;"
+      - "ConnectionStrings__OrderingConnectionString=Server=orderingdb;Database=OrderingDb;User Id=sa;Password=Rahul1234567;TrustServerCertificate=true;"
+      - "EventBussSettings__HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - orderingdb 
+      - rabbitmq 
     ports:
       - "9003:80"

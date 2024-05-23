@@ -11,6 +11,7 @@ public class OrderContextSeed
         {
             context.Orders.AddRange(GetOrders());
             await context.SaveChangesAsync();
+            logger.LogInformation("Order is saved.");
         }
     }
 
