@@ -19,12 +19,27 @@ namespace EShoping.IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope("CatelogApi"),
+                new ApiScope("catelogapi"),
+                new ApiScope("catelogapi.read"),
+                new ApiScope("catelogapi.write"),
+                new ApiScope("basketapi"),
+                new ApiScope("eshopinggateway"),
             };
 
         public static IEnumerable<ApiResource> ApiResources => new ApiResource[]
         {
-            new ApiResource("Catelog","Catelog.Api")
+            new ApiResource("Catalog", "Catelog.Api")
+            {
+                Scopes={ "catelogapi.read", "catelogapi.write" }
+            },
+            new ApiResource("Basket", "Basket.Api")
+            {
+                Scopes={ "basketapi" }
+            },
+            new ApiResource("EShopingGateway", "EShoping.Gateway")
+            {
+                Scopes={ "eshopinggateway" }
+            }
         };
 
         public static IEnumerable<Client> Clients =>
@@ -37,24 +52,24 @@ namespace EShoping.IdentityServer
                     ClientId = "CatalogApiClient",
                     ClientSecrets = {new Secret("5c6eb3b4-61a7-4668-ac57-2b4591ec26d2".Sha256())},
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    AllowedScopes = { "CatelogApi" }
+                    AllowedScopes = { "catelogapi.read", "catelogapi.write" }
                 },
-
-                // interactive client using code flow + pkce
                 new Client
                 {
-                    ClientId = "interactive",
-                    ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
-
-                    AllowedGrantTypes = GrantTypes.Code,
-
-                    RedirectUris = { "https://localhost:44300/signin-oidc" },
-                    FrontChannelLogoutUri = "https://localhost:44300/signout-oidc",
-                    PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
-
-                    AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "scope2" }
+                    ClientName = "Basket API Client",
+                    ClientId = "BasketApiClient",
+                    ClientSecrets = {new Secret("5c6eb3b4-61a7-4658-ac57-2b4591ec26d2".Sha256())},
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedScopes = { "basketapi" }
                 },
+                new Client
+                {
+                    ClientName = "EShoping Gateway Client",
+                    ClientId = "EShopingGatewayClient",
+                    ClientSecrets = {new Secret("5c6eb3b4-61a7-4658-ac57-2b4591ec26d2".Sha256())},
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedScopes = { "eshopinggateway" }
+                }
             };
     }
 }

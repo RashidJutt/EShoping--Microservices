@@ -1,12 +1,21 @@
 ﻿using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Cache.CacheManager;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 namespace Ocelot.ApiGateway;
 
 public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
+        var authScheme = "AuthSchemeGateway";
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(authScheme, options =>
+            {
+                options.Authority = "https://localhost:9009";
+                options.Audience = "EShopingGateway";
+            });
+
         services.AddOcelot()
             .AddCacheManager(o => o.WithDictionaryHandle());
     }

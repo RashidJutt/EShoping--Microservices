@@ -6,7 +6,10 @@ using DiscountAPI;
 using HealthChecks.UI.Client;
 using MassTransit;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Reflection;
 namespace Basket.API;
@@ -21,7 +24,6 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddControllers();
         services.AddApiVersioning();
 
         //Redis Setup
@@ -49,6 +51,24 @@ public class Startup
         });
 
         services.AddMassTransitHostedService();
+
+        //Add Authorization Filter.
+        var policy = new AuthorizationPolicyBuilder()
+            .RequireAuthenticatedUser()
+            .Build();
+
+        services.AddControllers(options =>
+        {
+            options.Filters.Add(new AuthorizeFilter(policy));
+        });
+
+        //Add Authentication 
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+             .AddJwtBearer(options =>
+             {
+                 options.Authority = "https://localhost:9009";
+                 options.Audience = "Basket";
+             });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -62,9 +82,9 @@ public class Startup
                 setup.SwaggerEndpoint("/swagger/v1/swagger.json", "Basket Api v1");
             });
 
-            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(configure =>
             {
                 configure.MapControllers();

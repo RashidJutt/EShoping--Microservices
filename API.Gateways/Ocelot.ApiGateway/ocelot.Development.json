@@ -1,175 +1,178 @@
 {
-  "Routes": [
-    //Catalog API
-    {
-      "DownstreamPathTemplate": "/api/v1/Catalog",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+    "Routes": [
+        //Catalog API
         {
-          "Host": "host.docker.internal",
-          "Port": "9000"
-        }
-      ],
-      "UpstreamPathTemplate": "/Catalog",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
-      "FileCacheOptions": { "TtlSeconds": 30 }
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/Catalog/GetProductById/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/v1/Catalog",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "host.docker.internal",
+                    "Port": "9000"
+                }
+            ],
+            "UpstreamPathTemplate": "/Catalog",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+            "FileCacheOptions": { "TtlSeconds": 30 }
+        },
         {
-          "Host": "host.docker.internal",
-          "Port": "9000"
-        }
-      ],
-      "UpstreamPathTemplate": "/Catalog/GetProductById/{id}",
-      "UpstreamHttpMethod": [ "GET", "DELETE" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/Catalog/GetAllProducts",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/v1/Catalog/GetProductById/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "host.docker.internal",
+                    "Port": "9000"
+                }
+            ],
+            "UpstreamPathTemplate": "/Catalog/GetProductById/{id}",
+            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+        },
         {
-          "Host": "host.docker.internal",
-          "Port": "9000"
-        }
-      ],
-      "UpstreamPathTemplate": "/Catalog/GetAllProducts",
-      "UpstreamHttpMethod": [ "GET", "DELETE" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/Catalog/GetAllBrands",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/v1/Catalog/GetAllProducts",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "host.docker.internal",
+                    "Port": "9000"
+                }
+            ],
+            "UpstreamPathTemplate": "/Catalog/GetAllProducts",
+            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+        },
         {
-          "Host": "host.docker.internal",
-          "Port": "9000"
-        }
-      ],
-      "UpstreamPathTemplate": "/Catalog/GetAllBrands",
-      "UpstreamHttpMethod": [ "GET", "DELETE" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/Catalog/GetAllTypes",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/v1/Catalog/GetAllBrands",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "host.docker.internal",
+                    "Port": "9000"
+                }
+            ],
+            "UpstreamPathTemplate": "/Catalog/GetAllBrands",
+            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+        },
         {
-          "Host": "host.docker.internal",
-          "Port": "9000"
-        }
-      ],
-      "UpstreamPathTemplate": "/Catalog/GetAllTypes",
-      "UpstreamHttpMethod": [ "GET", "DELETE" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/Catalog/GetProductsByBrandName/{brand}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/v1/Catalog/GetAllTypes",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "host.docker.internal",
+                    "Port": "9000"
+                }
+            ],
+            "UpstreamPathTemplate": "/Catalog/GetAllTypes",
+            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+        },
         {
-          "Host": "host.docker.internal",
-          "Port": "9000"
-        }
-      ],
-      "UpstreamPathTemplate": "/Catalog/GetProductsByBrandName/{brand}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    //Basket API
-    {
-      "DownstreamPathTemplate": "/api/v1/Basket/GetBasket/{userName}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/v1/Catalog/GetProductsByBrandName/{brand}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "host.docker.internal",
+                    "Port": "9000"
+                }
+            ],
+            "UpstreamPathTemplate": "/Catalog/GetProductsByBrandName/{brand}",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
+        //Basket API
         {
-          "Host": "host.docker.internal",
-          "Port": "9001"
-        }
-      ],
-      "UpstreamPathTemplate": "/Basket/GetBasket/{userName}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/Basket/DeleteBasket/{userName}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/v1/Basket/GetBasket/{userName}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "host.docker.internal",
+                    "Port": "9001"
+                }
+            ],
+            "UpstreamPathTemplate": "/Basket/GetBasket/{userName}",
+            "UpstreamHttpMethod": [ "GET" ]
+        },
         {
-          "Host": "host.docker.internal",
-          "Port": "9001"
-        }
-      ],
-      "UpstreamPathTemplate": "/Basket/DeleteBasket/{userName}",
-      "UpstreamHttpMethod": [ "DELETE" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/Basket/CreateBasket",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/v1/Basket/DeleteBasket/{userName}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "host.docker.internal",
+                    "Port": "9001"
+                }
+            ],
+            "UpstreamPathTemplate": "/Basket/DeleteBasket/{userName}",
+            "UpstreamHttpMethod": [ "DELETE" ]
+        },
         {
-          "Host": "host.docker.internal",
-          "Port": "9001"
-        }
-      ],
-      "UpstreamPathTemplate": "/Basket/CreateBasket",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/Basket/Checkout",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/v1/Basket/CreateBasket",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "host.docker.internal",
+                    "Port": "9001"
+                }
+            ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "AuthSchemeGateway"
+            },
+            "UpstreamPathTemplate": "/Basket/CreateBasket",
+            "UpstreamHttpMethod": [ "POST" ]
+        },
         {
-          "Host": "host.docker.internal",
-          "Port": "9001"
-        }
-      ],
-      "UpstreamPathTemplate": "/Basket/Checkout",
-      "UpstreamHttpMethod": [ "POST" ],
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "3s",
-        "PeriodTimespan": 1,
-        "Limit": 1
-      }
-    },
-    //Discount API
-    {
-      "DownstreamPathTemplate": "/api/v1/Discount/{productName}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/v1/Basket/Checkout",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "host.docker.internal",
+                    "Port": "9001"
+                }
+            ],
+            "UpstreamPathTemplate": "/Basket/Checkout",
+            "UpstreamHttpMethod": [ "POST" ],
+            "RateLimitOptions": {
+                "ClientWhitelist": [],
+                "EnableRateLimiting": true,
+                "Period": "3s",
+                "PeriodTimespan": 1,
+                "Limit": 1
+            }
+        },
+        //Discount API
         {
-          "Host": "host.docker.internal",
-          "Port": "9002"
-        }
-      ],
-      "UpstreamPathTemplate": "/Discount/{productName}",
-      "UpstreamHttpMethod": [ "GET", "DELETE" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/Discount",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/v1/Discount/{productName}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "host.docker.internal",
+                    "Port": "9002"
+                }
+            ],
+            "UpstreamPathTemplate": "/Discount/{productName}",
+            "UpstreamHttpMethod": [ "GET", "DELETE" ]
+        },
         {
-          "Host": "host.docker.internal",
-          "Port": "9002"
-        }
-      ],
-      "UpstreamPathTemplate": "/Discount",
-      "UpstreamHttpMethod": [ "PUT", "POST" ]
-    },
-    //Order API
-    {
-      "DownstreamPathTemplate": "/api/v1/Order/{userName}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/v1/Discount",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "host.docker.internal",
+                    "Port": "9002"
+                }
+            ],
+            "UpstreamPathTemplate": "/Discount",
+            "UpstreamHttpMethod": [ "PUT", "POST" ]
+        },
+        //Order API
         {
-          "Host": "host.docker.internal",
-          "Port": "9003"
+            "DownstreamPathTemplate": "/api/v1/Order/{userName}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "host.docker.internal",
+                    "Port": "9003"
+                }
+            ],
+            "UpstreamPathTemplate": "/Order/{userName}",
+            "UpstreamHttpMethod": [ "GET" ]
         }
-      ],
-      "UpstreamPathTemplate": "/Order/{userName}",
-      "UpstreamHttpMethod": [ "GET" ]
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "https://localhost:9010"
     }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:9010"
-  }
 }

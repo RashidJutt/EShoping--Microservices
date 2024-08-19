@@ -54,6 +54,11 @@ public class Startup
         {
             options.Filters.Add(new AuthorizeFilter(policy));
         });
+
+        services.AddAuthorization(opitons =>
+        {
+            opitons.AddPolicy("CanRead", config => config.RequireClaim("scope", "catelogapi.read"));
+        });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
