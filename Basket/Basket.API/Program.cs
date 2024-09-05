@@ -1,3 +1,6 @@
+using Common.Logging;
+using Serilog;
+
 namespace Basket.API;
 public class Program
 {
@@ -11,5 +14,5 @@ public class Program
         .ConfigureWebHostDefaults(configure =>
         {
             configure.UseStartup<Startup>();
-        });
+        }).UseSerilog(Logging.ConfigureLogger);
 }
