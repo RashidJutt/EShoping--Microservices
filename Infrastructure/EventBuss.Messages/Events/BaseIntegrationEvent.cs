@@ -6,6 +6,7 @@ public class BaseIntegrationEvent
     public Guid Id { get; private set; }
     public DateTime CreationDate { get; private set; }
 
+    public string CorrelationId { get; set; }
     public BaseIntegrationEvent()
     {
         Id = Guid.NewGuid();

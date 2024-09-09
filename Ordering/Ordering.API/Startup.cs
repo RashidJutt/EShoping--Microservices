@@ -1,4 +1,5 @@
-﻿using EventBuss.Messages.common;
+﻿using Common.Logging.Correlation;
+using EventBuss.Messages.common;
 using HealthChecks.UI.Client;
 using MassTransit;
 using Microsoft.OpenApi.Models;
@@ -25,6 +26,8 @@ public class Startup
         services.AddInfraServices(Configuration);
         services.AddAutoMapper(typeof(Startup));
         services.AddScoped<BasketOrderingConsumer>();
+        services.AddScoped<ICorrelationIdGenerator, CorrelationIdGenerator>();
+
         services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo() { Title = "Ordering.Api", Version = "v1" });
