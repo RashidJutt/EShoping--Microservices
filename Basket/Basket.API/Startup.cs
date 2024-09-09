@@ -2,6 +2,7 @@
 using Basket.Application.Handlers;
 using Basket.Core.Repositories;
 using Basket.Infrastructure.Repositories;
+using Common.Logging.Correlation;
 using DiscountAPI;
 using HealthChecks.UI.Client;
 using MassTransit;
@@ -30,6 +31,7 @@ public class Startup
             setup.Configuration = Configuration.GetValue<string>("CacheSettings:ConnectionString");
         });
 
+        services.AddScoped<ICorrelationIdGenerator,CorrelationIdGenerator>();
         services.AddMediatR(typeof(CreateShoppingCartCommandHandler).GetTypeInfo().Assembly);
         services.AddScoped<IBasketRepository, BasketRepository>();
         services.AddAutoMapper(typeof(Startup));
@@ -62,7 +64,6 @@ public class Startup
                 setup.SwaggerEndpoint("/swagger/v1/swagger.json", "Basket Api v1");
             });
 
-            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseEndpoints(configure =>
